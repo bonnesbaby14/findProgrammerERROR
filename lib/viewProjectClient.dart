@@ -271,6 +271,7 @@ class _ViewProjectClient extends State<ViewProjectClient> {
             await getReqFProject();
             await getReqNFProject();
             await getAvancesProject();
+            await getDesarrolladorProject();
           }),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
@@ -279,7 +280,11 @@ class _ViewProjectClient extends State<ViewProjectClient> {
               print(dataProject);
               print(
                   "--------------------------------------------------------------------------");
-
+     print(
+                  "proyecto que se esta trabajando----------------------------------");
+              print(desarrollador);
+              print(
+                  "--------------------------------------------------------------------------");
               listReqNF = new List<Widget>();
               listReqF = new List<Widget>();
               listAvances = new List<Widget>();
@@ -802,7 +807,9 @@ class _ViewProjectClient extends State<ViewProjectClient> {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.fromLTRB(15, 5, 0, 0),
-                                  child: Text("Gabriel Rodriguez",
+                                  child: desarrollador.length!=0? Text( desarrollador[0]['nombre'].toString() + " " + desarrollador[0]['apellido_p'].toString()+ " " + desarrollador[0]['apellido_m'].toString(),
+                                      style: TextStyle(
+                                          fontSize: 14.0, color: Colors.white)) : Text( "Sin desarrollador asignado",
                                       style: TextStyle(
                                           fontSize: 14.0, color: Colors.white)),
                                 ),
@@ -1410,4 +1417,15 @@ class _ViewProjectClient extends State<ViewProjectClient> {
     print(response.body);
   }
   
+  Future<List> getDesarrolladorProject() async {
+    final response = await http.post(
+        "http://192.168.0.6/findprogrammerDB/loadInfoProject.php",
+        body: {"ID_PROYECTO": this.ID, "TYPE": "5"});
+
+    var dataProject = json.decode(response.body);
+    this.desarrollador = dataProject;
+    print(response.body);
+  }
+
+
 } //fin de la clase
