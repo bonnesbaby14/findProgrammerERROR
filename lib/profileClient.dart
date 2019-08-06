@@ -4,7 +4,7 @@ import 'homeClient.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
 
 const IconData menu = IconData(0xe900, fontFamily: "CustomIcons");
-var _scaffoldKey = new GlobalKey<ScaffoldState>();
+
 var contextoS;
 
 class ProfileClient extends StatefulWidget {
@@ -13,10 +13,12 @@ class ProfileClient extends StatefulWidget {
 }
 
 class _ProfileClient extends State<ProfileClient> {
+  
   @override
   Widget build(BuildContext context) {
+    var _scaffoldKeyprofile = new GlobalKey<ScaffoldState>();
     return Scaffold(
-        key: _scaffoldKey,
+        key: _scaffoldKeyprofile,
         drawer: Container(
           width: 260.0,
           decoration: BoxDecoration(
@@ -85,7 +87,7 @@ class _ProfileClient extends State<ProfileClient> {
                 child: Container(
                   width: 450.0,
                   height: 0.5,
-                  color: Colors.white,
+                  color: Colors.deepPurpleAccent,
                 ),
               ),
               SizedBox(
@@ -164,46 +166,51 @@ class _ProfileClient extends State<ProfileClient> {
               SizedBox(
                 height: 15,
               ),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15.0))),
-                child: Row(
-                  children: <Widget>[
-                    Padding(
-                        padding: EdgeInsets.all(1),
-                        child: Row(
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(5, 4, 15, 4),
-                              child: Container(
-                                child: Icon(
-                                  GroovinMaterialIcons.new_box,
-                                  size: 35,
-                                  color: Colors.grey,
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Homeclient()));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                  child: Row(
+                    children: <Widget>[
+                      Padding(
+                          padding: EdgeInsets.all(1),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(5, 4, 15, 4),
+                                child: Container(
+                                  child: Icon(
+                                    GroovinMaterialIcons.new_box,
+                                    size: 35,
+                                    color: Colors.grey,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(9),
-                              child: Text(
-                                "Proyectos Publicados",
-                                style: TextStyle(
-                                    fontSize: 17.0, color: Colors.white),
-                              ),
-                            )
-                          ],
-                        )),
-                  ],
+                              Padding(
+                                padding: EdgeInsets.all(9),
+                                child: Text(
+                                  "Proyectos Publicados",
+                                  style: TextStyle(
+                                      fontSize: 17.0, color: Colors.white),
+                                ),
+                              )
+                            ],
+                          )),
+                    ],
+                  ),
                 ),
               ),
-
 //nuevo wighet
               SizedBox(
                 height: 15,
               ),
               Container(
                 decoration: BoxDecoration(
-                    color: Colors.transparent.withOpacity(0.3),
                     borderRadius: BorderRadius.all(Radius.circular(15.0))),
                 child: Row(
                   children: <Widget>[
@@ -217,7 +224,7 @@ class _ProfileClient extends State<ProfileClient> {
                                 child: Icon(
                                   GroovinMaterialIcons.exit_to_app,
                                   size: 35,
-                                  color: Colors.deepPurpleAccent,
+                                  color: Colors.grey,
                                 ),
                               ),
                             ),
@@ -273,7 +280,7 @@ class _ProfileClient extends State<ProfileClient> {
                           padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                           child: IconButton(
                               onPressed: () {
-                                _scaffoldKey.currentState.openDrawer();
+                                _scaffoldKeyprofile.currentState.openDrawer();
                               },
                               icon: Icon(
                                 CustomIcons.menu,
@@ -414,194 +421,6 @@ class _ProfileClient extends State<ProfileClient> {
                     );
                   },
                 ),
-                // child: ListView(
-                //   children: <Widget>[
-                //     Card(
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(20.0),
-                //       ),
-                //       elevation: 10,
-                //       color: Color.fromARGB(450, 41, 39, 42),
-                //       child: Row(
-                //         children: <Widget>[
-                //           Padding(
-                //             padding: EdgeInsets.all(20),
-                //             child: Icon(
-                //               Icons.star_half,
-                //               size: 50,
-                //               color: Colors.white,
-                //             ),
-                //           ),
-                //           Column(
-                //             children: <Widget>[
-                //               SizedBox(
-                //                 height: 25,
-                //               ),
-                //               Text(" Alvaro Pintor",
-                //                   textAlign: TextAlign.justify,
-                //                   style: TextStyle(
-                //                       fontSize: 20.0, color: Colors.white)),
-                //               SizedBox(
-                //                 height: 5,
-                //               ),
-                //               Container(
-                //                 width: 220,
-                //                 child: Text(
-                //                     " Presiona demasiado durante la realizacion del proyecto y el pago se retraso bastante.",
-                //                     textAlign: TextAlign.justify,
-                //                     style: TextStyle(
-                //                       fontSize: 10.0,
-                //                       color: Colors.white,
-                //                     )),
-                //               ),
-                //               SizedBox(
-                //                 height: 25,
-                //               ),
-                //             ],
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //     Card(
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(20.0),
-                //       ),
-                //       elevation: 10,
-                //       color: Color.fromARGB(450, 41, 39, 42),
-                //       child: Row(
-                //         children: <Widget>[
-                //           Padding(
-                //             padding: EdgeInsets.all(20),
-                //             child: Icon(
-                //               Icons.star_half,
-                //               size: 50,
-                //               color: Colors.white,
-                //             ),
-                //           ),
-                //           Column(
-                //             children: <Widget>[
-                //               SizedBox(
-                //                 height: 25,
-                //               ),
-                //               Text(" Alvaro Pintor",
-                //                   textAlign: TextAlign.justify,
-                //                   style: TextStyle(
-                //                       fontSize: 20.0, color: Colors.white)),
-                //               SizedBox(
-                //                 height: 5,
-                //               ),
-                //               Container(
-                //                 width: 220,
-                //                 child: Text(
-                //                     " Presiona demasiado durante la realizacion del proyecto y el pago se retraso bastante.",
-                //                     textAlign: TextAlign.justify,
-                //                     style: TextStyle(
-                //                       fontSize: 10.0,
-                //                       color: Colors.white,
-                //                     )),
-                //               ),
-                //               SizedBox(
-                //                 height: 25,
-                //               ),
-                //             ],
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //     Card(
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(20.0),
-                //       ),
-                //       elevation: 10,
-                //       color: Color.fromARGB(450, 41, 39, 42),
-                //       child: Row(
-                //         children: <Widget>[
-                //           Padding(
-                //             padding: EdgeInsets.all(20),
-                //             child: Icon(
-                //               Icons.star_half,
-                //               size: 50,
-                //               color: Colors.white,
-                //             ),
-                //           ),
-                //           Column(
-                //             children: <Widget>[
-                //               SizedBox(
-                //                 height: 25,
-                //               ),
-                //               Text(" Alvaro Pintor",
-                //                   textAlign: TextAlign.justify,
-                //                   style: TextStyle(
-                //                       fontSize: 20.0, color: Colors.white)),
-                //               SizedBox(
-                //                 height: 5,
-                //               ),
-                //               Container(
-                //                 width: 220,
-                //                 child: Text(
-                //                     " Presiona demasiado durante la realizacion del proyecto y el pago se retraso bastante.",
-                //                     textAlign: TextAlign.justify,
-                //                     style: TextStyle(
-                //                       fontSize: 10.0,
-                //                       color: Colors.white,
-                //                     )),
-                //               ),
-                //               SizedBox(
-                //                 height: 25,
-                //               ),
-                //             ],
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //     Card(
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(20.0),
-                //       ),
-                //       elevation: 10,
-                //       color: Color.fromARGB(450, 41, 39, 42),
-                //       child: Row(
-                //         children: <Widget>[
-                //           Padding(
-                //             padding: EdgeInsets.all(20),
-                //             child: Icon(
-                //               Icons.star_half,
-                //               size: 50,
-                //               color: Colors.white,
-                //             ),
-                //           ),
-                //           Column(
-                //             children: <Widget>[
-                //               SizedBox(
-                //                 height: 25,
-                //               ),
-                //               Text(" Alvaro Pintor",
-                //                   textAlign: TextAlign.justify,
-                //                   style: TextStyle(
-                //                       fontSize: 20.0, color: Colors.white)),
-                //               SizedBox(
-                //                 height: 5,
-                //               ),
-                //               Container(
-                //                 width: 220,
-                //                 child: Text(
-                //                     " Presiona demasiado durante la realizacion del proyecto y el pago se retraso bastante.",
-                //                     textAlign: TextAlign.justify,
-                //                     style: TextStyle(
-                //                       fontSize: 10.0,
-                //                       color: Colors.white,
-                //                     )),
-                //               ),
-                //               SizedBox(
-                //                 height: 25,
-                //               ),
-                //             ],
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //   ],
-                // ),
               ),
             ],
           ),

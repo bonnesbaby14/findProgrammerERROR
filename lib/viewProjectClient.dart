@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:async/async.dart';
+import 'package:find_programmer/profileClient.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'customIcons.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
 
 const IconData menu = IconData(0xe900, fontFamily: "CustomIcons");
-var _scaffoldKey = new GlobalKey<ScaffoldState>();
+
 var contextoS;
 bool _ligths = false;
 var listReqF = List<Widget>();
@@ -32,14 +33,11 @@ class _ViewProjectClient extends State<ViewProjectClient> {
   @override
   void initState() {
     // TODO: implement initState
-
-    print("el id es: " + ID);
-    print("lo siguiente es la respuesta del servidor");
   }
 
   @override
   Widget build(BuildContext context) {
-    pr = new ProgressDialog(context, ProgressDialogType.Normal);
+   var _scaffoldKey = new GlobalKey<ScaffoldState>();
     return Scaffold(
         key: _scaffoldKey,
         drawer: Container(
@@ -56,6 +54,7 @@ class _ViewProjectClient extends State<ViewProjectClient> {
               GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileClient()));
                 },
                 child: Row(
                   children: <Widget>[
@@ -189,7 +188,12 @@ class _ViewProjectClient extends State<ViewProjectClient> {
               SizedBox(
                 height: 15,
               ),
-              Container(
+              GestureDetector(
+                onTap: (){
+                  Navigator.pop(context);
+                  Navigator.push(context,MaterialPageRoute(builder: (context)=>Homeclient()));
+                },
+                child: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(15.0))),
                 child: Row(
@@ -221,6 +225,7 @@ class _ViewProjectClient extends State<ViewProjectClient> {
                   ],
                 ),
               ),
+              ),
 
 //nuevo wighet
               SizedBox(
@@ -228,7 +233,7 @@ class _ViewProjectClient extends State<ViewProjectClient> {
               ),
               Container(
                 decoration: BoxDecoration(
-                    color: Colors.transparent.withOpacity(0.3),
+                    //color: Colors.transparent.withOpacity(0.3),
                     borderRadius: BorderRadius.all(Radius.circular(15.0))),
                 child: Row(
                   children: <Widget>[
@@ -242,7 +247,7 @@ class _ViewProjectClient extends State<ViewProjectClient> {
                                 child: Icon(
                                   GroovinMaterialIcons.exit_to_app,
                                   size: 35,
-                                  color: Colors.deepPurpleAccent,
+                                  color: Colors.grey,
                                 ),
                               ),
                             ),
@@ -275,16 +280,7 @@ class _ViewProjectClient extends State<ViewProjectClient> {
           }),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              print(
-                  "proyecto que se esta trabajando----------------------------------");
-              print(dataProject);
-              print(
-                  "--------------------------------------------------------------------------");
-     print(
-                  "proyecto que se esta trabajando----------------------------------");
-              print(desarrollador);
-              print(
-                  "--------------------------------------------------------------------------");
+          
               listReqNF = new List<Widget>();
               listReqF = new List<Widget>();
               listAvances = new List<Widget>();
@@ -807,11 +803,23 @@ class _ViewProjectClient extends State<ViewProjectClient> {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.fromLTRB(15, 5, 0, 0),
-                                  child: desarrollador.length!=0? Text( desarrollador[0]['nombre'].toString() + " " + desarrollador[0]['apellido_p'].toString()+ " " + desarrollador[0]['apellido_m'].toString(),
-                                      style: TextStyle(
-                                          fontSize: 14.0, color: Colors.white)) : Text( "Sin desarrollador asignado",
-                                      style: TextStyle(
-                                          fontSize: 14.0, color: Colors.white)),
+                                  child: desarrollador.length != 0
+                                      ? Text(
+                                          desarrollador[0]['nombre']
+                                                  .toString() +
+                                              " " +
+                                              desarrollador[0]['apellido_p']
+                                                  .toString() +
+                                              " " +
+                                              desarrollador[0]['apellido_m']
+                                                  .toString(),
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              color: Colors.white))
+                                      : Text("Sin desarrollador asignado",
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              color: Colors.white)),
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -1414,9 +1422,9 @@ class _ViewProjectClient extends State<ViewProjectClient> {
 
     var dataProject = json.decode(response.body);
     this.avances = dataProject;
-    print(response.body);
+    
   }
-  
+
   Future<List> getDesarrolladorProject() async {
     final response = await http.post(
         "http://192.168.0.6/findprogrammerDB/loadInfoProject.php",
@@ -1424,8 +1432,6 @@ class _ViewProjectClient extends State<ViewProjectClient> {
 
     var dataProject = json.decode(response.body);
     this.desarrollador = dataProject;
-    print(response.body);
+    
   }
-
-
 } //fin de la clase

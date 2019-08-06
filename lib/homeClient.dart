@@ -4,19 +4,18 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'componentes/helperSQFLITE.dart';
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'customIcons.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
 
-var _scaffoldKey = new GlobalKey<ScaffoldState>();
+
 var contextoS;
 bool bva = false;
 Helper helper = new Helper();
 List<Map<String, dynamic>> clientList = List();
 Map<String, dynamic> client = Map();
 var myProjects;
-ProgressDialog pr;
+
 
 const IconData menu = IconData(0xe900, fontFamily: "CustomIcons");
 
@@ -28,6 +27,7 @@ class Homeclient extends StatefulWidget {
 class _Homeclient extends State<Homeclient> {
   @override
   void initState() {
+    
     // TODO: implement initState
     getClient();
 
@@ -37,15 +37,17 @@ class _Homeclient extends State<Homeclient> {
 
   @override
   Widget build(BuildContext context) {
-  
+  var _scaffoldKeyhome = new GlobalKey<ScaffoldState>();
+var _keydos= new GlobalKey();
     return WillPopScope(
+      
       onWillPop: () {
         //esto es provicional para pruebas
         helper.DeleteCliente();
         Navigator.pop(context);
       },
       child: Scaffold(
-        key: _scaffoldKey,
+        key: _scaffoldKeyhome,
         drawer: Container(
           width: 260.0,
           decoration: BoxDecoration(
@@ -60,6 +62,7 @@ class _Homeclient extends State<Homeclient> {
               GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
+                  
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => ProfileClient()));
                 },
@@ -197,6 +200,7 @@ class _Homeclient extends State<Homeclient> {
               ),
               Container(
                 decoration: BoxDecoration(
+                  color: Colors.transparent.withOpacity(0.3),
                     borderRadius: BorderRadius.all(Radius.circular(15.0))),
                 child: Row(
                   children: <Widget>[
@@ -210,7 +214,7 @@ class _Homeclient extends State<Homeclient> {
                                 child: Icon(
                                   GroovinMaterialIcons.new_box,
                                   size: 35,
-                                  color: Colors.grey,
+                                  color: Colors.deepPurpleAccent,
                                 ),
                               ),
                             ),
@@ -234,7 +238,7 @@ class _Homeclient extends State<Homeclient> {
               ),
               Container(
                 decoration: BoxDecoration(
-                    color: Colors.transparent.withOpacity(0.3),
+                    
                     borderRadius: BorderRadius.all(Radius.circular(15.0))),
                 child: Row(
                   children: <Widget>[
@@ -248,7 +252,7 @@ class _Homeclient extends State<Homeclient> {
                                 child: Icon(
                                   GroovinMaterialIcons.exit_to_app,
                                   size: 35,
-                                  color: Colors.deepPurpleAccent,
+                                  color: Colors.grey,
                                 ),
                               ),
                             ),
@@ -273,13 +277,14 @@ class _Homeclient extends State<Homeclient> {
           backgroundColor: Colors.white24,
           child: Icon(GroovinMaterialIcons.plus_circle_multiple_outline),
           onPressed: () {
-            pr.show();
+            
 //alertCreateProject(context);
           },
         ),
         resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.white,
         body: FutureBuilder(
+          key: _keydos,
           future: getProject(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
@@ -309,7 +314,7 @@ class _Homeclient extends State<Homeclient> {
                               children: <Widget>[
                                 IconButton(
                                   onPressed: () {
-                                    _scaffoldKey.currentState.openDrawer();
+                                    _scaffoldKeyhome.currentState.openDrawer();
                                   },
                                   icon: Icon(
                                     CustomIcons.menu,
@@ -438,7 +443,7 @@ class _Homeclient extends State<Homeclient> {
                               children: <Widget>[
                                 IconButton(
                                   onPressed: () {
-                                    _scaffoldKey.currentState.openDrawer();
+                                    _scaffoldKeyhome.currentState.openDrawer();
                                   },
                                   icon: Icon(
                                     CustomIcons.menu,
